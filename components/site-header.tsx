@@ -25,11 +25,14 @@ export async function SiteHeader() {
     <header className="border-b">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="text-lg font-bold">
-          LMS
+          MDCAT Prep
         </Link>
         <nav className="flex items-center gap-2">
           <Button asChild variant="ghost">
-            <Link href="/">Catalog</Link>
+            <Link href="/subjects">Subjects</Link>
+          </Button>
+          <Button asChild variant="ghost">
+            <Link href="/pricing">Pricing</Link>
           </Button>
           {user ? (
             <>
