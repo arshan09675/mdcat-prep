@@ -39,7 +39,13 @@ export async function updateSession(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
   const isAuthPage = path === "/login" || path === "/register";
-  const protectedPrefixes = ["/dashboard", "/learn", "/admin", "/certificate"];
+  const protectedPrefixes = [
+    "/dashboard",
+    "/learn",
+    "/admin",
+    "/certificate",
+    "/subscribe",
+  ];
   const isProtected = protectedPrefixes.some(
     (p) => path === p || path.startsWith(`${p}/`),
   );

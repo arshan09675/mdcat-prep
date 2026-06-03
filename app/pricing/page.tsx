@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -67,14 +68,9 @@ export default async function PricingPage() {
                       ))}
                     </ul>
                   )}
-                  <div className="space-y-2">
-                    <Button className="w-full" disabled>
-                      Subscribe
-                    </Button>
-                    <p className="text-center text-xs text-muted-foreground">
-                      Easypaisa / JazzCash checkout arrives in the next update.
-                    </p>
-                  </div>
+                  <Button asChild className="w-full">
+                    <Link href={`/subscribe/${plan.id}`}>Subscribe</Link>
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -82,11 +78,11 @@ export default async function PricingPage() {
         )}
 
         <div className="mt-10">
-          <Badge variant="secondary">Manual payment</Badge>
+          <Badge variant="secondary">Manual payment via JazzCash</Badge>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            Payments are verified manually via Easypaisa / JazzCash. The
-            payment-submission form (send proof → admin approves → instant
-            access) lands in the next build step.
+            Pick a plan, pay to our JazzCash account, then submit your
+            transaction details and a screenshot. Once an admin verifies your
+            payment, your access unlocks instantly.
           </p>
         </div>
       </main>
