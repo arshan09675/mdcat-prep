@@ -22,16 +22,16 @@ export default async function AdminLayout({
     .eq("status", "pending");
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
-      <div className="container flex flex-1 gap-8 py-8">
-        <aside className="w-52 shrink-0">
-          <h2 className="mb-3 px-3 text-xs font-semibold uppercase text-muted-foreground">
+      <div className="container flex flex-1 flex-col gap-6 py-8 md:flex-row md:gap-8">
+        <aside className="md:w-52 md:shrink-0">
+          <h2 className="mb-3 px-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground md:px-3">
             Admin
           </h2>
           <AdminNav pendingPayments={count ?? 0} />
         </aside>
-        <main className="flex-1">{children}</main>
+        <main className="min-w-0 flex-1">{children}</main>
       </div>
     </div>
   );

@@ -29,9 +29,15 @@ export function AuthForm({
   const [state, formAction] = useFormState<AuthState, FormData>(action, null);
 
   return (
-    <div className="w-full max-w-sm space-y-6">
+    <div className="w-full max-w-sm space-y-6 rounded-xl border border-border bg-card p-7 shadow-card">
       <div className="space-y-2 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">
+        <Link
+          href="/"
+          className="inline-block rounded-md text-lg font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        >
+          MDCAT<span className="text-primary"> Prep</span>
+        </Link>
+        <h1 className="pt-1 text-2xl font-semibold tracking-tight">
           {mode === "login" ? "Welcome back" : "Create your account"}
         </h1>
         <p className="text-sm text-muted-foreground">
@@ -42,7 +48,7 @@ export function AuthForm({
       </div>
 
       {message && (
-        <p className="rounded-md bg-secondary px-3 py-2 text-sm text-secondary-foreground">
+        <p className="rounded-lg bg-secondary px-3 py-2 text-sm text-secondary-foreground">
           {message}
         </p>
       )}

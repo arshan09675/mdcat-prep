@@ -77,8 +77,8 @@ export default async function AdminPaymentsPage() {
           Pending ({enriched.length})
         </h2>
         {enriched.length === 0 ? (
-          <p className="rounded-md border border-dashed p-8 text-center text-muted-foreground">
-            No pending payments. 🎉
+          <p className="rounded-xl border border-dashed border-border p-10 text-center text-muted-foreground">
+            No pending payments to review.
           </p>
         ) : (
           <div className="space-y-4">

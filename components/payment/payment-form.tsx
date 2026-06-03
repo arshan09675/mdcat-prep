@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -88,12 +89,13 @@ export function PaymentForm({
 
   if (done) {
     return (
-      <Card className="border-amber-500/40 bg-amber-50">
-        <CardContent className="space-y-2 py-8 text-center">
-          <p className="text-lg font-semibold">
+      <Card className="border-primary/20 bg-surface">
+        <CardContent className="flex flex-col items-center gap-3 py-10 text-center">
+          <Clock className="h-10 w-10 text-primary" />
+          <p className="text-lg font-semibold text-foreground">
             Payment received — under review
           </p>
-          <p className="text-sm text-muted-foreground">
+          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
             We&apos;re verifying your payment. You&apos;ll get access once an
             admin approves it.
           </p>
@@ -104,25 +106,31 @@ export function PaymentForm({
 
   return (
     <div className="space-y-6">
-      {/* Receiving details */}
-      <Card className="border-primary/30 bg-secondary/30">
-        <CardHeader>
+      {/* Receiving details — highlighted */}
+      <Card className="border-primary/30 bg-primary/5">
+        <CardHeader className="pb-3">
           <CardTitle className="text-base">
             Step 1 — Send {formatPkr(amountPkr)} via JazzCash
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-1 text-sm">
-          <div className="flex justify-between">
+        <CardContent className="space-y-2.5 text-sm">
+          <div className="flex items-center justify-between border-b border-primary/10 pb-2.5">
             <span className="text-muted-foreground">JazzCash Number</span>
-            <span className="font-mono font-semibold">{jc.number}</span>
+            <span className="font-mono text-base font-semibold text-foreground">
+              {jc.number}
+            </span>
           </div>
-          <div className="flex justify-between">
+          <div className="flex items-center justify-between border-b border-primary/10 pb-2.5">
             <span className="text-muted-foreground">Account Name</span>
-            <span className="font-semibold">{jc.accountName}</span>
+            <span className="font-semibold text-foreground">
+              {jc.accountName}
+            </span>
           </div>
-          <div className="flex justify-between">
+          <div className="flex items-center justify-between">
             <span className="text-muted-foreground">Amount</span>
-            <span className="font-semibold">{formatPkr(amountPkr)}</span>
+            <span className="font-semibold text-primary">
+              {formatPkr(amountPkr)}
+            </span>
           </div>
         </CardContent>
       </Card>

@@ -1,7 +1,5 @@
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { Button } from "@/components/ui/button";
-import { logout } from "@/app/(auth)/actions";
+import { SiteNav } from "@/components/site-nav";
 
 export async function SiteHeader() {
   const supabase = createClient();
@@ -21,47 +19,5 @@ export async function SiteHeader() {
 
   const isStaff = role === "admin" || role === "instructor";
 
-  return (
-    <header className="border-b">
-      <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="text-lg font-bold">
-          MDCAT Prep
-        </Link>
-        <nav className="flex items-center gap-2">
-          <Button asChild variant="ghost">
-            <Link href="/subjects">Subjects</Link>
-          </Button>
-          <Button asChild variant="ghost">
-            <Link href="/pricing">Pricing</Link>
-          </Button>
-          {user ? (
-            <>
-              <Button asChild variant="ghost">
-                <Link href="/dashboard">Dashboard</Link>
-              </Button>
-              {isStaff && (
-                <Button asChild variant="ghost">
-                  <Link href="/admin">Admin</Link>
-                </Button>
-              )}
-              <form action={logout}>
-                <Button type="submit" variant="outline">
-                  Sign out
-                </Button>
-              </form>
-            </>
-          ) : (
-            <>
-              <Button asChild variant="ghost">
-                <Link href="/login">Sign in</Link>
-              </Button>
-              <Button asChild>
-                <Link href="/register">Get started</Link>
-              </Button>
-            </>
-          )}
-        </nav>
-      </div>
-    </header>
-  );
+  return <SiteNav signedIn={!!user} isStaff={isStaff} />;
 }

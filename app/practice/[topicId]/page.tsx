@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ChevronLeft } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { PracticeRunner } from "@/components/practice/practice-runner";
 import { createClient } from "@/lib/supabase/server";
@@ -33,21 +34,23 @@ export default async function PracticePage({
     : Math.max(0, ctx.mcqTotal - mcqs.length);
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-background">
       <SiteHeader />
       <main className="container flex-1 py-10">
-        <Link
-          href={`/subjects/${ctx.subject.slug}`}
-          className="text-sm text-muted-foreground hover:underline"
-        >
-          ← {ctx.subject.name}
-        </Link>
-        <h1 className="mt-2 text-2xl font-bold tracking-tight">
-          {ctx.topic.name}
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {ctx.subject.name} practice
-        </p>
+        <div className="mx-auto max-w-2xl">
+          <Link
+            href={`/subjects/${ctx.subject.slug}`}
+            className="inline-flex items-center gap-1 rounded-md text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            <ChevronLeft className="h-4 w-4" /> {ctx.subject.name}
+          </Link>
+          <h1 className="mt-3 text-2xl font-bold tracking-tight">
+            {ctx.topic.name}
+          </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {ctx.subject.name} practice
+          </p>
+        </div>
 
         <div className="mt-8">
           <PracticeRunner

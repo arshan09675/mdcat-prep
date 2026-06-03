@@ -125,7 +125,7 @@ export function PaymentReview({
           </div>
 
           {showReject && (
-            <div className="space-y-2 rounded-md border p-3">
+            <div className="space-y-2 rounded-lg border border-border p-3">
               <Textarea
                 placeholder="Optional note to record why this was rejected…"
                 value={note}
@@ -157,14 +157,19 @@ export function PaymentReview({
             Payment proof
           </p>
           {screenshotUrl ? (
-            <a href={screenshotUrl} target="_blank" rel="noreferrer">
+            <a
+              href={screenshotUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="group block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={screenshotUrl}
-                alt="Payment screenshot"
-                className="max-h-64 w-full rounded-md border object-contain"
+                alt="JazzCash payment screenshot submitted by the student"
+                className="max-h-64 w-full rounded-lg border border-border bg-surface object-contain transition-colors group-hover:border-primary/40"
               />
-              <span className="mt-1 block text-center text-xs text-muted-foreground">
+              <span className="mt-1.5 block text-center text-xs text-muted-foreground group-hover:text-foreground">
                 Open full size
               </span>
             </a>

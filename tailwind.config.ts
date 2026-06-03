@@ -10,8 +10,18 @@ const config: Config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: { "2xl": "1400px" },
+      padding: {
+        DEFAULT: "1.25rem",
+        sm: "1.5rem",
+        lg: "2rem",
+      },
+      screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1100px",
+        "2xl": "1100px",
+      },
     },
     extend: {
       colors: {
@@ -19,6 +29,7 @@ const config: Config = {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
+        surface: "hsl(var(--surface))",
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -31,6 +42,10 @@ const config: Config = {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+        },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -46,9 +61,15 @@ const config: Config = {
         },
       },
       borderRadius: {
+        xl: "calc(var(--radius) + 4px)",
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - 4px)",
+        sm: "calc(var(--radius) - 6px)",
+      },
+      boxShadow: {
+        card: "0 1px 2px 0 rgb(15 23 42 / 0.04)",
+        "card-hover":
+          "0 4px 16px -4px rgb(15 23 42 / 0.10), 0 2px 6px -2px rgb(15 23 42 / 0.06)",
       },
     },
   },
