@@ -24,7 +24,23 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sora)", "system-ui", "sans-serif"],
+        display: ["var(--font-playfair)", "Georgia", "serif"],
+      },
       colors: {
+        // Named "Elite Preparation" palette (non-colliding names)
+        brand: {
+          DEFAULT: "#1a56db",
+          600: "#1a56db",
+          700: "#1345b5",
+          800: "#0e3490",
+        },
+        navy: { DEFAULT: "#0a1628", 800: "#152045", footer: "#060e1e" },
+        ink: { DEFAULT: "#0a1628", mid: "#3a5070", muted: "#6b7fa3" },
+        gold: "#f5b800",
+        off: "#f7f9ff",
+        // shadcn-semantic
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

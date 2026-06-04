@@ -6,7 +6,7 @@ export default function LoginPage({
   searchParams: { redirect?: string; message?: string; error?: string };
 }) {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-surface px-4 py-12">
+    <main className="flex min-h-screen items-center justify-center bg-off px-4 py-12">
       <AuthForm
         mode="login"
         redirectTo={searchParams.redirect}

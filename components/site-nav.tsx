@@ -3,15 +3,30 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { GraduationCap, Menu, X } from "lucide-react";
 import { logout } from "@/app/(auth)/actions";
 
 const NAV_LINKS = [
+  { label: "Home", href: "/" },
   { label: "Subjects", href: "/subjects" },
+  { label: "Mock Tests", href: "/tests" },
   { label: "Pricing", href: "/pricing" },
+  { label: "Contact", href: "/contact" },
 ];
+
+function Logo() {
+  return (
+    <Link href="/" className="flex items-center gap-3" aria-label="MDCAT Prep home">
+      <span className="logo-box">
+        <GraduationCap className="h-5 w-5" />
+      </span>
+      <span>
+        <span className="logo-w1 block font-display">MDCAT</span>
+        <span className="logo-w2 block">Preparation</span>
+      </span>
+    </Link>
+  );
+}
 
 export function SiteNav({
   signedIn,
@@ -30,53 +45,46 @@ export function SiteNav({
   ];
 
   const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-      <div className="container flex h-16 items-center justify-between">
-        <Link
-          href="/"
-          className="rounded-md text-lg font-semibold tracking-tight text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        >
-          MDCAT<span className="text-primary"> Prep</span>
-        </Link>
+    <nav className="glass-nav">
+      <div className="mx-auto flex h-[68px] max-w-[1100px] items-center justify-between px-5 md:px-8">
+        <Logo />
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 md:flex">
+        {/* Desktop links */}
+        <ul className="hidden list-none items-center gap-8 md:flex">
           {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                isActive(link.href)
-                  ? "text-primary"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              {link.label}
-            </Link>
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className={`nav-link ${isActive(link.href) ? "active" : ""}`}
+              >
+                {link.label}
+              </Link>
+            </li>
           ))}
-          <div className="ml-2 flex items-center gap-2">
-            {signedIn ? (
-              <form action={logout}>
-                <Button type="submit" variant="outline" size="sm">
-                  Sign out
-                </Button>
-              </form>
-            ) : (
-              <>
-                <Button asChild variant="ghost" size="sm">
-                  <Link href="/login">Sign in</Link>
-                </Button>
-                <Button asChild size="sm">
-                  <Link href="/register">Get started</Link>
-                </Button>
-              </>
-            )}
-          </div>
-        </nav>
+        </ul>
+
+        {/* Desktop actions */}
+        <div className="hidden items-center gap-2.5 md:flex">
+          {signedIn ? (
+            <form action={logout}>
+              <button type="submit" className="btn btn-ghost">
+                Sign out
+              </button>
+            </form>
+          ) : (
+            <>
+              <Link href="/login" className="btn btn-ghost">
+                Log In
+              </Link>
+              <Link href="/register" className="btn btn-blue">
+                Get Started
+              </Link>
+            </>
+          )}
+        </div>
 
         {/* Mobile toggle */}
         <button
@@ -84,56 +92,63 @@ export function SiteNav({
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-navy md:hidden"
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="border-t border-border bg-background md:hidden">
-          <nav className="container flex flex-col gap-1 py-3">
+        <div className="border-t border-border bg-white md:hidden">
+          <ul className="mx-auto flex max-w-[1100px] list-none flex-col gap-1 px-5 py-3">
             {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                  isActive(link.href)
-                    ? "bg-secondary text-primary"
-                    : "text-muted-foreground hover:bg-secondary hover:text-foreground",
-                )}
-              >
-                {link.label}
-              </Link>
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className={`block rounded-lg px-3 py-2.5 text-sm font-semibold ${
+                    isActive(link.href)
+                      ? "bg-sky-50 text-brand"
+                      : "text-ink-muted hover:bg-sky-50 hover:text-brand"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
             ))}
-            <div className="mt-2 flex flex-col gap-2 border-t border-border pt-3">
+            <li className="mt-2 flex flex-col gap-2 border-t border-border pt-3">
               {signedIn ? (
                 <form action={logout}>
-                  <Button type="submit" variant="outline" className="w-full">
+                  <button
+                    type="submit"
+                    className="btn btn-ghost w-full justify-center"
+                  >
                     Sign out
-                  </Button>
+                  </button>
                 </form>
               ) : (
                 <>
-                  <Button asChild variant="outline" className="w-full">
-                    <Link href="/login" onClick={() => setOpen(false)}>
-                      Sign in
-                    </Link>
-                  </Button>
-                  <Button asChild className="w-full">
-                    <Link href="/register" onClick={() => setOpen(false)}>
-                      Get started
-                    </Link>
-                  </Button>
+                  <Link
+                    href="/login"
+                    onClick={() => setOpen(false)}
+                    className="btn btn-ghost w-full justify-center"
+                  >
+                    Log In
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={() => setOpen(false)}
+                    className="btn btn-blue w-full justify-center"
+                  >
+                    Get Started
+                  </Link>
                 </>
               )}
-            </div>
-          </nav>
+            </li>
+          </ul>
         </div>
       )}
-    </header>
+    </nav>
   );
 }

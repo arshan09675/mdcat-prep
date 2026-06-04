@@ -65,8 +65,8 @@ export default async function AdminPaymentsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Payments</h1>
-        <p className="mt-1 text-muted-foreground">
+        <h1 className="font-display text-3xl font-bold text-navy">Payments</h1>
+        <p className="mt-1 text-ink-muted">
           Verify manual JazzCash payments. Approving creates an active
           subscription immediately.
         </p>

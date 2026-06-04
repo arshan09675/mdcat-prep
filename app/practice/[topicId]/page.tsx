@@ -2,7 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 import { PracticeRunner } from "@/components/practice/practice-runner";
+import { subjectStyle } from "@/lib/subject-style";
 import { createClient } from "@/lib/supabase/server";
 import { getTopicContext } from "@/lib/catalog";
 import { hasActiveSubscription } from "@/lib/subscription";
@@ -32,23 +34,26 @@ export default async function PracticePage({
   const lockedCount = subscribed
     ? 0
     : Math.max(0, ctx.mcqTotal - mcqs.length);
+  const st = subjectStyle(ctx.subject.slug);
+  const Icon = st.Icon;
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col" style={{ background: "var(--off)" }}>
       <SiteHeader />
-      <main className="container flex-1 py-10">
+      <main className="mx-auto w-full max-w-[1100px] flex-1 px-5 py-10 md:px-8">
         <div className="mx-auto max-w-2xl">
           <Link
             href={`/subjects/${ctx.subject.slug}`}
-            className="inline-flex items-center gap-1 rounded-md text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-ink-muted transition-colors hover:text-brand"
           >
             <ChevronLeft className="h-4 w-4" /> {ctx.subject.name}
           </Link>
-          <h1 className="mt-3 text-2xl font-bold tracking-tight">
+          <h1 className="mt-3 flex items-center gap-2.5 font-display text-3xl font-bold text-navy">
+            <Icon className="h-7 w-7" style={{ color: st.accent }} />
             {ctx.topic.name}
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {ctx.subject.name} practice
+          <p className="mt-1 text-sm text-ink-muted">
+            {ctx.subject.name} · MCQ practice
           </p>
         </div>
 
@@ -60,6 +65,7 @@ export default async function PracticePage({
           />
         </div>
       </main>
+      <SiteFooter />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft, CheckCircle2, Clock } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { PaymentForm } from "@/components/payment/payment-form";
@@ -47,21 +48,23 @@ export default async function SubscribePage({
   const pending = pendingRes.data;
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col" style={{ background: "var(--off)" }}>
       <SiteHeader />
-      <main className="container flex-1 py-12">
+      <main className="mx-auto w-full max-w-[1100px] flex-1 px-5 py-12 md:px-8">
         <div className="mx-auto max-w-xl">
           <Link
             href="/pricing"
-            className="inline-flex items-center gap-1 rounded-md text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="inline-flex items-center gap-1 text-sm font-semibold text-ink-muted transition-colors hover:text-brand"
           >
             <ChevronLeft className="h-4 w-4" /> All plans
           </Link>
 
           <div className="mt-3 space-y-6">
             <div>
-              <h1 className="text-2xl font-bold tracking-tight">{plan.name}</h1>
-              <p className="mt-1 text-muted-foreground">
+              <h1 className="font-display text-3xl font-bold text-navy">
+                {plan.name}
+              </h1>
+              <p className="mt-1 text-ink-muted">
                 {formatPkr(plan.price_pkr)} · {plan.duration_days} days access
               </p>
             </div>
@@ -106,6 +109,7 @@ export default async function SubscribePage({
           </div>
         </div>
       </main>
+      <SiteFooter />
     </div>
   );
 }

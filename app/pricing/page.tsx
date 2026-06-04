@@ -1,21 +1,19 @@
 import Link from "next/link";
-import { Check } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { cn } from "@/lib/utils";
+import { SiteFooter } from "@/components/site-footer";
+import { Faq } from "@/components/faq";
 import { createClient } from "@/lib/supabase/server";
 import { formatPkr } from "@/lib/format";
 import type { Plan } from "@/lib/types";
 
 export const metadata = { title: "Pricing — MDCAT Prep" };
+
+const PRICING_FAQS = [
+  { q: "How do I pay?", a: "Payments are made manually via JazzCash. Choose a plan, send the fee to our JazzCash account, then submit your transaction details and a screenshot. An admin verifies it and your access unlocks. (JazzCash only for now.)" },
+  { q: "What unlocks with a subscription?", a: "The full premium MCQ bank, mock tests and past papers for the duration of your plan. Free MCQs stay open to everyone." },
+  { q: "How long until my access is active?", a: "Access unlocks as soon as an admin approves your payment submission. You can track the status on your account." },
+];
 
 export default async function PricingPage() {
   const supabase = createClient();
@@ -26,96 +24,85 @@ export default async function PricingPage() {
     .order("position");
 
   const plans = (data ?? []) as Plan[];
-  // Highlight the higher-tier plan as "Most popular".
   const popularId = plans.length > 1 ? plans[plans.length - 1].id : plans[0]?.id;
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="container flex-1 py-12">
-        <header className="mx-auto max-w-2xl text-center">
-          <h1 className="text-3xl font-bold tracking-tight">
-            Simple, one-time subscription
-          </h1>
-          <p className="mt-2 leading-relaxed text-muted-foreground">
-            Unlock the full MCQ bank, mock tests, past papers and lectures. Pay
-            once via JazzCash — access starts the moment we verify it.
-          </p>
-        </header>
 
-        {plans.length === 0 ? (
-          <p className="mt-10 text-center text-muted-foreground">
-            No plans available yet. Check back soon.
-          </p>
-        ) : (
-          <div className="mx-auto mt-10 grid max-w-4xl gap-6 sm:grid-cols-2">
-            {plans.map((plan) => {
-              const popular = plan.id === popularId;
-              return (
-                <Card
-                  key={plan.id}
-                  className={cn(
-                    "relative flex flex-col",
-                    popular && "border-primary shadow-card-hover ring-1 ring-primary",
-                  )}
-                >
-                  {popular && (
-                    <Badge className="absolute -top-2.5 left-6">
-                      Most popular
-                    </Badge>
-                  )}
-                  <CardHeader>
-                    <CardTitle>{plan.name}</CardTitle>
-                    {plan.description && (
-                      <CardDescription className="leading-relaxed">
-                        {plan.description}
-                      </CardDescription>
-                    )}
-                    <div className="pt-3">
-                      <span className="text-3xl font-bold tracking-tight text-foreground">
-                        {formatPkr(plan.price_pkr)}
-                      </span>
-                      <span className="text-muted-foreground">
-                        {" "}
-                        / {plan.duration_days} days
-                      </span>
+      <div className="page-head">
+        <div className="tag">Simple Pricing</div>
+        <h2 className="sec-h">Choose Your Plan</h2>
+        <p>
+          No hidden fees. Unlock the full MCQ bank, mock tests and past papers.
+          Secure manual payment via JazzCash.
+        </p>
+      </div>
+
+      <section className="sec flex-1" style={{ background: "#fff" }}>
+        <div className="sec-in">
+          {plans.length === 0 ? (
+            <p className="sec-s text-center">No plans available yet.</p>
+          ) : (
+            <div className="price-grid">
+              {plans.map((plan) => {
+                const feat = plan.id === popularId;
+                const features = Array.isArray(plan.features)
+                  ? plan.features
+                  : [];
+                return (
+                  <div key={plan.id} className={`pc ${feat ? "feat" : ""}`}>
+                    {feat && <div className="pop-b">Most Popular</div>}
+                    <div className="pn">{plan.name}</div>
+                    <div className="pp">
+                      {formatPkr(plan.price_pkr)}{" "}
+                      <span className="pr">/ {plan.duration_days} days</span>
                     </div>
-                  </CardHeader>
-                  <CardContent className="flex flex-1 flex-col justify-between gap-6">
-                    {Array.isArray(plan.features) &&
-                      plan.features.length > 0 && (
-                        <ul className="space-y-2.5 text-sm text-muted-foreground">
-                          {plan.features.map((f, i) => (
-                            <li key={i} className="flex items-start gap-2.5">
-                              <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                              <span>{f}</span>
-                            </li>
-                          ))}
-                        </ul>
+                    {plan.description && <div className="pd">{plan.description}</div>}
+                    <hr className="dv" />
+                    <div className="pf-list">
+                      {features.length > 0 ? (
+                        features.map((f, i) => (
+                          <div className="pf-i" key={i}>
+                            <CheckCircle2 className="h-[15px] w-[15px]" /> {f}
+                          </div>
+                        ))
+                      ) : (
+                        <>
+                          <div className="pf-i">
+                            <CheckCircle2 className="h-[15px] w-[15px]" /> Full
+                            premium MCQ bank
+                          </div>
+                          <div className="pf-i">
+                            <CheckCircle2 className="h-[15px] w-[15px]" /> All mock
+                            tests &amp; past papers
+                          </div>
+                        </>
                       )}
-                    <Button
-                      asChild
-                      variant={popular ? "default" : "outline"}
-                      className="w-full"
-                    >
-                      <Link href={`/subscribe/${plan.id}`}>Subscribe</Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        )}
+                    </div>
+                    <div style={{ marginTop: "auto" }}>
+                      <Link
+                        href={`/subscribe/${plan.id}`}
+                        className={`btn ${feat ? "btn-blue" : "btn-ghost"} w-full justify-center`}
+                      >
+                        Subscribe
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
-        <div className="mx-auto mt-12 max-w-2xl rounded-xl border border-border bg-surface p-5 text-center">
-          <Badge variant="secondary">Manual payment via JazzCash</Badge>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            Pick a plan, pay to our JazzCash account, then submit your
-            transaction details and a screenshot. Once an admin verifies your
-            payment, your access unlocks instantly.
-          </p>
+          <div style={{ marginTop: "4rem", textAlign: "center" }}>
+            <div className="tag">FAQs</div>
+            <h2 className="sec-h">Payment &amp; Access</h2>
+          </div>
+          <Faq items={PRICING_FAQS} />
         </div>
-      </main>
+      </section>
+
+      <SiteFooter />
     </div>
   );
 }

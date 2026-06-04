@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { SiteNav } from "@/components/site-nav";
 
@@ -19,5 +20,13 @@ export async function SiteHeader() {
 
   const isStaff = role === "admin" || role === "instructor";
 
-  return <SiteNav signedIn={!!user} isStaff={isStaff} />;
+  return (
+    <>
+      <div className="topbar">
+        MDCAT 2025 prep — practice free MCQs &amp; full-length mock tests
+        <Link href="/pricing">See plans →</Link>
+      </div>
+      <SiteNav signedIn={!!user} isStaff={isStaff} />
+    </>
+  );
 }

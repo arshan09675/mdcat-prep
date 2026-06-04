@@ -33,7 +33,7 @@ export function AuthForm({
       <div className="space-y-2 text-center">
         <Link
           href="/"
-          className="inline-block rounded-md text-lg font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="inline-block rounded-md font-display text-xl font-extrabold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           MDCAT<span className="text-primary"> Prep</span>
         </Link>

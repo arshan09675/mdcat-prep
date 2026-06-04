@@ -1,12 +1,26 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Sora, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const sora = Sora({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-sora",
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["700", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "LMS — Learn anything",
-  description: "A production-style Learning Management System.",
+  title: "MDCAT Prep — Your path to medical college",
+  description:
+    "MDCAT 2025 preparation for Pakistan: subject-wise MCQ practice with instant explanations, full-length timed mock tests, and past papers.",
 };
 
 export default function RootLayout({
@@ -15,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={`${sora.variable} ${playfair.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
