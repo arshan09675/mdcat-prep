@@ -41,6 +41,9 @@ export function SiteNav({
   const links = [
     ...NAV_LINKS,
     ...(signedIn ? [{ label: "Dashboard", href: "/dashboard" }] : []),
+    // Admin link is staff-only: shown only when the server-resolved role is
+    // admin/instructor. Students and logged-out users never see it. The /admin
+    // route guards (middleware + layout) stay in place regardless.
     ...(isStaff ? [{ label: "Admin", href: "/admin" }] : []),
   ];
 

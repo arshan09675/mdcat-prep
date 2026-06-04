@@ -582,15 +582,11 @@
   box-shadow: 0 16px 48px rgba(26, 86, 219, 0.2);
   border-color: var(--blue);
 }
-.sc-ico {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.sc-em {
+  font-size: 38px;
+  line-height: 1;
+  display: block;
   margin-bottom: 1rem;
-  background: rgba(255, 255, 255, 0.7);
 }
 .sc-n {
   font-size: 16px;
