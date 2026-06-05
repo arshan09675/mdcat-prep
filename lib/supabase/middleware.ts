@@ -45,6 +45,8 @@ export async function updateSession(request: NextRequest) {
     "/admin",
     "/certificate",
     "/subscribe",
+    "/test", // the test runner (singular) — needs auth; /tests list stays public
+    "/result",
   ];
   const isProtected = protectedPrefixes.some(
     (p) => path === p || path.startsWith(`${p}/`),

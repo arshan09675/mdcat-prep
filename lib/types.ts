@@ -70,6 +70,40 @@ export interface TestQuestion {
   position: number;
 }
 
+export type AttemptStatus = "in_progress" | "completed";
+
+export interface TestAttempt {
+  id: string;
+  user_id: string;
+  test_id: string;
+  status: AttemptStatus;
+  started_at: string;
+  submitted_at: string | null;
+  score: number | null;
+  total_marks: number | null;
+  correct_count: number | null;
+  wrong_count: number | null;
+  skipped_count: number | null;
+  subject_breakdown: Record<string, { correct: number; total: number }> | null;
+}
+
+export interface TestAnswer {
+  id: string;
+  attempt_id: string;
+  mcq_id: string;
+  selected_index: number | null;
+  is_correct: boolean | null;
+}
+
+/** MCQ shape used by the test runner — answer key deliberately omitted. */
+export interface RunnerQuestion {
+  id: string;
+  text: string;
+  options: string[];
+  difficulty: Difficulty;
+  subjectId: string | null;
+}
+
 export interface Lecture {
   id: string;
   subject_id: string;
