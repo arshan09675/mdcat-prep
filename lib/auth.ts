@@ -41,3 +41,15 @@ export async function requireStaff(): Promise<CurrentProfile | null> {
   if (profile.role !== "admin" && profile.role !== "instructor") return null;
   return profile;
 }
+
+/**
+ * Returns the profile only if the caller is an admin. Use for admin-only
+ * writes (e.g. subscription plans / pricing) that the DB restricts to
+ * is_admin() — keeps server actions in step with RLS.
+ */
+export async function requireAdmin(): Promise<CurrentProfile | null> {
+  const profile = await getCurrentProfile();
+  if (!profile) return null;
+  if (profile.role !== "admin") return null;
+  return profile;
+}
