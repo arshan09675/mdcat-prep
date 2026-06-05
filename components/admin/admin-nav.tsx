@@ -16,12 +16,13 @@ export function AdminNav({ pendingPayments }: { pendingPayments: number }) {
 
   const items: NavItem[] = [
     { label: "Payments", href: "/admin/payments", badge: pendingPayments },
-    { label: "MCQs", href: "/admin/mcqs", soon: true },
-    { label: "Tests", href: "/admin/tests", soon: true },
-    { label: "Lectures", href: "/admin/lectures", soon: true },
-    { label: "Plans", href: "/admin/plans", soon: true },
-    { label: "Students", href: "/admin/students", soon: true },
-    { label: "Analytics", href: "/admin/analytics", soon: true },
+    { label: "MCQs", href: "/admin/mcqs" },
+    { label: "Tests", href: "/admin/tests" },
+    { label: "Lectures", href: "/admin/lectures" },
+    { label: "Books & Notes", href: "/admin/books" },
+    { label: "Plans", href: "/admin/plans" },
+    { label: "Students", href: "/admin/students" },
+    { label: "Analytics", href: "/admin/analytics" },
   ];
 
   return (

@@ -44,3 +44,57 @@ export interface Plan {
   active: boolean;
   position: number;
 }
+
+export type TestType = "mock" | "topic" | "past_paper" | "practice";
+
+export interface Test {
+  id: string;
+  title: string;
+  type: TestType;
+  subject_id: string | null;
+  topic_id: string | null;
+  total_questions: number;
+  duration_minutes: number;
+  marks_per_correct: number;
+  negative_marks: number;
+  past_paper_year: number | null;
+  is_free: boolean;
+  published: boolean;
+  created_at: string;
+}
+
+export interface TestQuestion {
+  id: string;
+  test_id: string;
+  mcq_id: string;
+  position: number;
+}
+
+export interface Lecture {
+  id: string;
+  subject_id: string;
+  topic_id: string | null;
+  title: string;
+  video_url: string | null;
+  video_path: string | null;
+  notes_body: string | null;
+  notes_path: string | null;
+  position: number;
+  is_free: boolean;
+}
+
+export type BookType = "book" | "notes";
+
+export interface Book {
+  id: string;
+  title: string;
+  description: string | null;
+  subject_id: string | null;
+  type: BookType;
+  file_path: string;
+  cover_url: string | null;
+  file_size_mb: number | null;
+  is_free: boolean;
+  position: number;
+  created_at: string;
+}
