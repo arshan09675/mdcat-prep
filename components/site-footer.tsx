@@ -25,6 +25,23 @@ export function SiteFooter() {
               A focused MDCAT preparation platform for Pakistan — built around a
               real MCQ bank, timed mock tests, and past papers.
             </p>
+            <ul className="fcontact">
+              <li>
+                <a href="mailto:theelitepreparations@gmail.com">
+                  theelitepreparations@gmail.com
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://wa.me/923248905884"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp: 0324 8905884
+                </a>
+              </li>
+              <li>Support hours: Mon–Sun, 9 AM – 11 PM</li>
+            </ul>
             <div className="soc2">
               <a className="sb2" href="#" aria-label="Facebook">
                 <Facebook className="h-4 w-4" />
@@ -35,7 +52,13 @@ export function SiteFooter() {
               <a className="sb2" href="#" aria-label="YouTube">
                 <Youtube className="h-4 w-4" />
               </a>
-              <a className="sb2" href="#" aria-label="WhatsApp">
+              <a
+                className="sb2"
+                href="https://wa.me/923248905884"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+              >
                 <MessageCircle className="h-4 w-4" />
               </a>
             </div>
